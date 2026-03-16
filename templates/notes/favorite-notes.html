@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Favorite Notes</h2>
+
+{% if notes %}
+<ul>
+    {% for note in notes %}
+    <li>
+        <a href="{% url 'note_details' note.pk %}">{{ note.title }}</a>
+        - Category: {{ note.category.name }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No favorite notes yet.</p>
+{% endif %}
+
+<a href="{% url 'notes_list' %}">Back to All Notes</a>
+{% endblock %}

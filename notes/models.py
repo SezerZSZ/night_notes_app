@@ -2,6 +2,8 @@ from django.db import models
 from categories.models import Category
 from moods.models import Mood
 
+# model for notes
+
 class Note(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()

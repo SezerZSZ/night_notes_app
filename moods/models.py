@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# model for moods
 
 class Mood(models.Model):
     name = models.CharField(max_length=30, help_text="Enter a mood name")

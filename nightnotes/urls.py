@@ -15,8 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+
+    # Redirect empty path to notes list (your homepage)
+    path("", lambda request: redirect("notes_list"), name="home"),
+
+    # Include your apps
+    path("notes/", include("notes.urls")),
+    path("categories/", include("categories.urls")),
+    path("moods/", include("moods.urls")),
 ]
+
+
+
+
+
