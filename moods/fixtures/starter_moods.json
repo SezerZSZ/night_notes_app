@@ -1,0 +1,50 @@
+[
+  {
+    "model": "moods.mood",
+    "pk": 1,
+    "fields": {
+      "name": "Happy",
+      "icon": "😊"
+    }
+  },
+  {
+    "model": "moods.mood",
+    "pk": 2,
+    "fields": {
+      "name": "Calm",
+      "icon": "🌙"
+    }
+  },
+  {
+    "model": "moods.mood",
+    "pk": 3,
+    "fields": {
+      "name": "Tired",
+      "icon": "😴"
+    }
+  },
+  {
+    "model": "moods.mood",
+    "pk": 4,
+    "fields": {
+      "name": "Inspired",
+      "icon": "✨"
+    }
+  },
+  {
+    "model": "moods.mood",
+    "pk": 5,
+    "fields": {
+      "name": "Sad",
+      "icon": "😔"
+    }
+  },
+  {
+    "model": "moods.mood",
+    "pk": 6,
+    "fields": {
+      "name": "Focused",
+      "icon": "🎯"
+    }
+  }
+]

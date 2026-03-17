@@ -1,19 +1,16 @@
 {% extends "base.html" %}
+{% block title %}{{ note.title }}{% endblock %}
 
 {% block content %}
-<h2>{{ note.title }}</h2>
-<p><strong>Category:</strong> {{ note.category.name }}</p>
-<p><strong>Moods:</strong>
-    {% for mood in note.moods.all %}
-        {{ mood.icon }} {{ mood.name }}
-    {% empty %}
-        No moods
-    {% endfor %}
-</p>
-<p><strong>Content:</strong> {{ note.content }}</p>
-<p><strong>Created at:</strong> {{ note.created_at }}</p>
-{% if note.is_favorite %}<p>★ Favorite</p>{% endif %}
-<a href="{% url 'note_edit' note.pk %}">Edit</a> |
-<a href="{% url 'note_delete' note.pk %}">Delete</a> |
-<a href="{% url 'notes_list' %}">Back to all notes</a>
+<div class="note-card">
+    <h1>{{ note.title }}</h1>
+    <p>{{ note.content }}</p>
+    <p>Category: {{ note.category.name }}</p>
+    <p>Moods: {% for mood in note.moods.all %}{{ mood.icon }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}</p>
+    <div class="card-buttons">
+        <a href="{% url 'note_edit' note.pk %}">Edit</a>
+        <a href="{% url 'note_delete' note.pk %}">Delete</a>
+        <a href="{% url 'notes_list' %}">Back</a>
+    </div>
+</div>
 {% endblock %}

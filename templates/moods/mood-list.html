@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Moods</h2>
+
+<h2>Mood Library</h2>
+
+<p>Select moods to attach emotional context to your notes.</p>
+
 <ul>
     {% for mood in moods %}
-    <li>{{ mood.icon }} {{ mood.name }}</li>
+        <li>
+            {{ mood.icon }} {{ mood.name }}
+            <a href="{% url 'mood_delete' mood.pk %}">Delete</a>
+        </li>
     {% empty %}
-    <li>No moods yet.</li>
+        <li>No moods available.</li>
     {% endfor %}
 </ul>
-<a href="{% url 'mood_create' %}">Add Mood</a>
+
+<br>
+
+<a href="{% url 'mood_create' %}">Add Your Own Mood</a>
+
 {% endblock %}
+

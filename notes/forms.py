@@ -6,7 +6,7 @@ class NoteForm(forms.ModelForm):
 
     class Meta:
         model = Note
-        fields = ['title', 'content', 'category', 'moods', 'is_favorite',]
+        fields = ['title', 'content', 'category', 'moods', 'is_favorite']
 
         labels = {
             "title": "Title of the note",
@@ -18,13 +18,11 @@ class NoteForm(forms.ModelForm):
         }
 
         widgets = {
-            "content": forms.Textarea(attrs={
-                "placeholder": "Write your night reflection here...",
-                "rows": 5
-            }),
-            "created_at": forms.DateTimeInput(attrs={
-                "disabled": True
-            })
+            "title": forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter note title"}),
+            "content": forms.Textarea(
+                attrs={"class": "form-control", "placeholder": "Write your night reflection...", "rows": 6}),
+            "category": forms.Select(attrs={"class": "form-control"}),
+            "moods": forms.CheckboxSelectMultiple(attrs={"class": "mood-checkbox"}),
         }
 
     def clean_title(self):

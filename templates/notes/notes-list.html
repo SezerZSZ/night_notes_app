@@ -1,18 +1,54 @@
 {% extends "base.html" %}
+{% block title %}All Notes{% endblock %}
 
 {% block content %}
-<h2>All Notes</h2>
+<h1>All Notes</h1>
+<!-- notes-list.html -->
+<form method="get" class="search-form">
+    <input type="text" name="title" placeholder="Search by title..." value="{{ request.GET.title }}">
+
+    <select name="category">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+        <option value="{{ cat.name }}" {% if request.GET.category == cat.name %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="mood">
+        <option value="">All Moods</option>
+        {% for mood in moods %}
+        <option value="{{ mood.name }}" {% if request.GET.mood == mood.name %}selected{% endif %}>{{ mood.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
 {% if notes %}
-<ul>
+<div class="notes-grid">
     {% for note in notes %}
-    <li>
-        <a href="{% url 'note_details' note.pk %}">{{ note.title }}</a>
-        - Category: {{ note.category.name }}
-        {% if note.is_favorite %}★{% endif %}
-    </li>
+    <div class="note-card">
+        <h2>{{ note.title }}</h2>
+        <p>{{ note.content|truncatechars:100 }}</p>
+        <small>Category: {{ note.category.name }} | Moods:
+            {% for mood in note.moods.all %}{{ mood.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </small>
+        <div class="card-buttons">
+            <a href="{% url 'note_details' note.pk %}">View</a>
+            <a href="{% url 'note_edit' note.pk %}">Edit</a>
+            <a href="{% url 'note_delete' note.pk %}">Delete</a>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>No notes yet.</p>
 {% endif %}
+
+<div class="center-button">
+    <a href="{% url 'note_create' %}">
+        <button>+ Create New Note</button>
+    </a>
+</div>
+
 {% endblock %}

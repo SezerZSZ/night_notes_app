@@ -1,30 +1,66 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NightNotes</title>
+    <title>NightNotes - {% block title %}{% endblock %}</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="{% url 'notes_list' %}">Home</a></li>
-            <li><a href="{% url 'note_create' %}">Create Note</a></li>
-            <li><a href="{% url 'categories_list' %}">Categories</a></li>
-            <li><a href="{% url 'moods_list' %}">Moods</a></li>
-            <li><a href="{% url 'favorite_notes' %}">Favorites</a></li>
-        </ul>
-    </nav>
-</header>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <a href="{% url 'notes_list' %}">Notes</a>
+                <a href="{% url 'categories_list' %}">Categories</a>
+                <a href="{% url 'moods_list' %}">Moods</a>
+                <a href="{% url 'favorite_notes' %}">Favorites</a>
+                <button id="theme-toggle">🌙 / ☀️</button>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+            </div>
+        </nav>
+    </header>
 
-<footer>
-    <p>NightNotes &copy; 2026 🌙</p>
-</footer>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>NightNotes © 2026</p>
+    </footer>
+
+ <script>
+const toggle = document.getElementById("theme-toggle");
+const body = document.body;
+
+function updateThemeText() {
+    if (body.classList.contains("light-mode")) {
+        toggle.textContent = "☀ Light Mode";
+    } else {
+        toggle.textContent = "🌙 Dark Mode";
+    }
+}
+
+if (localStorage.getItem("theme") === "light") {
+    body.classList.add("light-mode");
+}
+
+updateThemeText();
+
+toggle.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+        localStorage.setItem("theme", "light");
+    } else {
+        localStorage.setItem("theme", "dark");
+    }
+
+    updateThemeText();
+});
+</script>
 </body>
 </html>
